@@ -1,0 +1,5 @@
+packages/
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo

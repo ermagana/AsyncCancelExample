@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<h2>@ViewBag.Message</h2>
+<p>
+    To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
+</p>
+<div>
+<h2>This section will have Asynchronous Controller call buttons</h2>
+<div id="container">
+    <div>
+        <input type="button" class="asyncbutton" value="Start 3 Second Call" data-asyncurl="/Home/Short/3" />
+	<input type="button" class="asyncbutton" value="Cancel Call" data-asyncurl="/Home/Cancel/Short3" />
+    </div>
+</div>
+<h3>From Microsoft:</h3>
+<iframe style="width:100%;height:580px;overflow:auto;" src="http://msdn.microsoft.com/en-us/library/ee728598%28v=vs.100%29.aspx#processing_asynchronous_requests"></iframe>
+<iframe style="width:100%;height:500px;overflow:auto;" src="http://msdn.microsoft.com/en-us/library/dd997396.aspx"></iframe>
+</div>
+<script type="text/javascript">
+	(function ($) {
+	    var asyncCallsXHR = null;
+	    function successResponse(data, textStatus, jqXHR) {
+	        alert(data);
+	        asyncCallsXHR = null;
+	    }
+	    function errorResponse(jqXHR, textStatus, errorThrown) {
+	        alert(errorThrown);
+	        asyncCallsXHR = null;
+	    }
+
+	    function asyncHandler(evt) {
+	        var btn = $(evt.currentTarget),
+		    asyncurl = btn.data('asyncurl');
+	        // make a call to the url
+	        //if (asyncCallsXHR !== null)
+	            //asyncCallsXHR.abort();
+	        asyncCallsXHR = $.getJSON(asyncurl, successResponse).error(errorResponse);
+	    }
+	    $('#container>div>input[type=button]').live('click', asyncHandler);
+	})(jQuery);
+</script>
